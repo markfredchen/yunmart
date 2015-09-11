@@ -1,0 +1,192 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+body {
+    font-size: 13px;
+}
+
+/**
+* Bootstrap Overwrite
+*/
+.yunmart {
+    .thumbnail {
+        border: 0px;
+        padding: 0px;
+    }
+    .btn {
+        border-radius: 0px;
+    }
+    .btn.btn-default {
+        background-color: gray;
+        color: #FFFFFF;
+        font-size: 13px;
+        border: 0px;
+    }
+    .btn.btn-primary {
+        background-color: #CC0000;
+        color: #FFFFFF;
+        font-size: 13px;
+        border: 0px;
+
+        .glyphicon {
+            line-height: 18px;
+        }
+    }
+    .pagination {
+        a {
+            color: #666666;
+            background: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            box-shadow: 0 0 2px 2px #F0F0F0 inset;
+            border-radius: 0px !important;
+            margin-right: 10px;
+        }
+        a:hover {
+            color: #666666;
+        }
+        .active a {
+            color: #CC0000;
+        }
+        .active a:hover {
+            background-color: #CC0000;
+            color: #FFFFFF;
+            border-color: #CCCCCC;
+            box-shadow: 0 0 0 transparent;
+        }
+        .disabled {
+            display: none;
+        }
+    }
+}
+
+header {
+    .navbar-header {
+        .logo {
+            background-image: url('/images/YunLogo.png');
+            background-repeat: no-repeat;
+            width: 150px;
+            height: 50px;
+            background-position-y: 10px;
+        }
+    }
+
+    .navbar-default {
+        background-color: #484848;
+        border-radius: 0;
+        border: 0;
+        ul.navbar-nav li a,
+        ul.navbar-nav li a:visited{
+            height: 80px;
+            color: #FFFFFF;
+            padding-top: 30px;
+            padding-bottom: 20px;
+
+        }
+        ul.navbar-nav li a:hover {
+            background-color: #343434;
+            color: #FFFFFF;
+        }
+        ul.navbar-nav li.active a {
+            background-color: #343434;
+            color: #FFFFFF;
+
+        }
+    }
+}
+
+footer {
+    background-color: #484848;
+    height: 245px;
+    padding-top: 30px;
+    .qr-code {
+        color: #FFFFFF;
+        text-align: center;
+        .logo {
+            width: 145px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.main {
+    margin-top: 20px;
+    .category-list .panel-body {
+        padding-left: 0px;
+    }
+    .panel {
+        border: 0px;
+        box-shadow: 0 0 0 transparent;
+        .panel-default {
+        }
+        .panel-heading {
+            background-color: transparent;
+            padding-left: 0px;
+            border-bottom: 2px solid #000;
+        }
+        .panel-body {
+            li {
+                list-style: none;
+            }
+        }
+    }
+    .product-list {
+        .filter-panel {
+            background-color: #e7e7e7;
+            border: 1px solid #484848;
+            margin-bottom: 10px;
+            height: 40px;
+            .view-method {
+                padding: 10px;
+                .view-label {
+                    float: left;
+                    width: 80px;
+
+                }
+                .icon-button {
+                    float: left;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+        .product.list {
+            float: left;
+            border-bottom: 1px solid #eeeeee;
+            margin-bottom: 15px;
+            .thumbnail {
+                width: 25%;
+                float: left;
+                max-height: 140px;
+                img {
+                    max-height: 140px;
+                }
+            }
+            .information {
+                padding-left: 10px;
+                width: 75%;
+                float: left;
+                .name {
+                    font-weight: bold;
+                    font-size: 16px;
+                    padding: 3px 0px
+                }
+                .button-group {
+                    margin-top: 15px;
+                }
+            }
+        }
+
+        .product.icon {
+            .thumbnail {
+                width: 20%;
+                float: left
+            }
+            .information {
+                display: none;
+            }
+        }
+    }
+}
+

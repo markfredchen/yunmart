@@ -1,0 +1,29 @@
+<div class="row">
+    <carousel interval="carousel.myInterval" no-wrap="carousel.noWrapSlides">
+        <slide ng-repeat="slide in carousel.slides" active="slide.active">
+            <img ng-src="{{slide.image}}" style="margin:auto;">
+        </slide>
+    </carousel>
+
+</div>
+<div class="category-list col-sm-3">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">产品分类</h3>
+        </div>
+        <div class="panel-body">
+            <category-list></category-list>
+        </div>
+    </div>
+</div>
+<div class="product-list col-sm-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">热门推荐</h3>
+        </div>
+        <div class="panel-body">
+            <product-list></product-list>
+        </div>
+
+    </div>
+</div>

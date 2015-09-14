@@ -6,8 +6,11 @@ angular.module('yunmartApp')
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider.state('product.detail', {
             url: '/product/{productOID}',
+            data: {
+                roles: ['ROLE_USER']
+            },
             views: {
-                "content@": {
+                'productContent@product': {
                     templateUrl: 'scripts/app/product/detail/product.detail.tpl.html',
                     controller: 'ProductDetailController'
                 }

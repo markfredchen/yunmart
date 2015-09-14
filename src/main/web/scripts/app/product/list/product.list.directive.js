@@ -8,9 +8,11 @@ angular.module('yunmartApp')
             restrict: 'E',
             templateUrl: 'scripts/app/product/list/product.list.directive.tpl.html',
             scope: {
-              category: "="
+                category: "=",
+                title: '='
             },
             controller: ['$scope', function ($scope) {
+
                 $scope.page = 1;
                 $scope.size = 3;
                 $scope.maxPage = 15;
@@ -18,14 +20,20 @@ angular.module('yunmartApp')
 
 
                 $scope.loadProducts = function () {
+                    var productRequest = {};
+                    productRequest.page = $scope.page - 1;
+                    productRequest.size = $scope.size;
                     if ($scope.category) {
-
-                    }else {
-
+                        productRequest.productCategoryID = $scope.category;
+                        console.log($scope.category);
+                        console.log(productRequest);
                     }
-                    Product.query({page: $scope.page - 1, size: $scope.size}, function (result) {
+
+
+                    Product.query(productRequest, function (result) {
                         $scope.pageData = result;
-                    })
+                    });
+
                 };
 
                 $scope.loadProducts();

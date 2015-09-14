@@ -25,5 +25,7 @@ angular.module('yunmartApp')
                 {image: '/images/c3.jpg'}
             ]
         };
+        $scope.productListTitle = "热门推荐";
+        $scope.category = "1";
 
     }]);

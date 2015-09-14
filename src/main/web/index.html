@@ -25,21 +25,7 @@
 
 <div class="container main" ui-view="content"></div>
 
-<footer>
-    <div class="container">
-        <div class="qr-code col-sm-3">
-
-            <p>
-                <img class="logo" src="images/YunLogo.png"/>
-                <br/>
-                <img src="images/Yunmart-code.jpg"/>
-            </p>
-            <p>Yunmart由汉得建设和运营</p>
-        </div>
-    </div>
-
-
-</footer>
+<footer ui-view="footer"></footer>
 
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
@@ -61,11 +47,20 @@
 <!-- build:js({.tmp,src/main/web}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
 <script src="scripts/app/home/home.js"></script>
+<script src="scripts/components/navbar/navbar.controller.js"></script>
+<script src="scripts/app/account/account.js"></script>
+<script src="scripts/app/account/login/login.js"></script>
+<script src="scripts/app/account/register/register.js"></script>
 <script src="scripts/app/product/product.js"></script>
+<script src="scripts/app/product/list/product.list.js"></script>
 <script src="scripts/app/product/detail/product.detail.js"></script>
 <script src="scripts/services/product/product.service.js"></script>
 <script src="scripts/app/product/list/product.list.directive.js"></script>
 <script src="scripts/app/category/category.list.directive.js"></script>
+<script src="scripts/components/auth/provider/auth.session.service.js"></script>
+<script src="scripts/components/auth/auth.service.js"></script>
+<script src="scripts/components/auth/authority.directive.js"></script>
+<script src="scripts/components/auth/principal.service.js"></script>
 <!-- endbuild -->
 </body>
 </html>

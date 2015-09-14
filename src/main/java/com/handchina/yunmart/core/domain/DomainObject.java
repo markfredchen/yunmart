@@ -13,26 +13,15 @@ import java.util.Date;
  */
 @MappedSuperclass
 abstract public class DomainObject {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
 
-    @JsonIgnore
+
     protected Date createdDate;
-    @JsonIgnore
+
     protected Long createdBy;
-    @JsonIgnore
+
     protected Date lastUpdatedDate;
-    @JsonIgnore
+
     protected Long lastUpdatedBy;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Date getCreatedDate() {
         return createdDate;

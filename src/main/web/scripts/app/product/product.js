@@ -6,6 +6,11 @@ angular.module('yunmartApp')
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider.state('product', {
             abstract: true,
-            parent: 'site'
+            parent: 'site',
+            views: {
+                'content@': {
+                    templateUrl: 'scripts/app/product/product.tpl.html',
+                }
+            }
         });
     }]);

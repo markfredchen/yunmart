@@ -1,26 +1,48 @@
 package com.handchina.yunmart;
 
+import com.handchina.yunmart.core.domain.Account;
+import com.handchina.yunmart.core.domain.Authority;
+import com.handchina.yunmart.core.domain.User;
 import com.handchina.yunmart.core.domain.product.Product;
 import com.handchina.yunmart.core.domain.product.ProductCategory;
-import com.handchina.yunmart.core.persistence.ProductCategoryRepository;
-import com.handchina.yunmart.core.persistence.ProductRepository;
+import com.handchina.yunmart.core.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.inject.Inject;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
 public class YunmartApplication implements CommandLineRunner{
 
+    @Inject
+    Environment env;
+
     @Autowired
     ProductRepository productRepository;
 
     @Autowired
     ProductCategoryRepository productCategoryRepository;
+
+    @Autowired
+    AuthorityRepository authorityRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     public static void main(String[] args) {
@@ -29,6 +51,39 @@ public class YunmartApplication implements CommandLineRunner{
 
     @Override
     public void run(String... strings) throws Exception {
+        System.out.println(env.getProperty("yunmart.security.remember.me.key"));
+        List<String> rightNames = Arrays.asList("ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR", "ROLE_SYSTEM_ADMIN");
+        for (String rightName : rightNames) {
+            Authority authority = new Authority();
+            authority.setName(rightName);
+            authorityRepository.save(authority);
+        }
+
+        Account account = new Account();
+        account.setAccountOID(UUID.nameUUIDFromBytes("PUBLIC".getBytes()));
+        account.setName("PUBLIC");
+        accountRepository.save(account);
+
+        User user = new User();
+        user.setUserOID(UUID.nameUUIDFromBytes("markfred".getBytes()));
+        user.setUsername("markfred.chen");
+        user.setEmail("markfred.chen@yunmart.com");
+        user.setPassword(passwordEncoder.encode("123456Ms3"));
+        user.setFullName("陈浩");
+        user.setAccount(account);
+        user.setRights(new HashSet<>(authorityRepository.findByNameIn(Arrays.asList("ROLE_USER"))));
+        userRepository.save(user);
+
+        User admin = new User();
+        admin.setUserOID(UUID.nameUUIDFromBytes("admin".getBytes()));
+        admin.setUsername("admin");
+        admin.setPassword(passwordEncoder.encode("123456Ms3"));
+        admin.setEmail("admin@yunmart.com");
+        admin.setFullName("系统管理员");
+        admin.setAccount(account);
+        admin.setRights(new HashSet<>(authorityRepository.findByNameIn(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))));
+        userRepository.save(admin);
+
         List<String> categories = Arrays.asList("企业协作管理", "行政办公管理", "差旅管理");
         for (String category : categories) {
             ProductCategory productCategory = new ProductCategory();
@@ -43,7 +98,7 @@ public class YunmartApplication implements CommandLineRunner{
                 "麦客",
                 "逸创云客服",
                 "蚂蚁HR"
-                );
+            );
         List<String> productDescs = Arrays.asList("针对小型企业管理资源较少的特点，将CRM、ERP和OA平台进行精简和集成，三大功能模块简化后集成一体，既减少了企业人员学习软件难度，也可以缩减人员编制，同时，高度共享的数据大大减少了重复劳动，并让一些..",
             "Teambition是一款出色的项目协作工具，让你可以和同伴共享项目进展，随时沟通，从而轻松完成目标。目前，Teambition 已经被应用于超过十个行业的逾一百万项目中，拥有非常高的媒体评价。..",
             "Oracle是全球一流的企业管理软件服务商，提供ERP、SCM、CRM、HR等多类企业管理软件。近年来，Oracle逐步推出云端的企业管理软件，财务云就是其中之一。财务云不只是把桌面财务系统(R12)..",

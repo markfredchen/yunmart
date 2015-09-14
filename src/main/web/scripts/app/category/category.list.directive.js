@@ -9,8 +9,6 @@ angular.module('yunmartApp')
             templateUrl: 'scripts/app/category/category.list.directive.tpl.html',
             controller: ['$scope', 'localStorageService', function ($scope, localStorageService) {
                 $scope.categories = localStorageService.get('product.categories');
-                console.log($scope.categories);
-
             }]
         };
     }])

@@ -15,6 +15,10 @@ body {
         border: 0px;
         padding: 0px;
     }
+    .form-control {
+        border-radius: 0px;
+        height: 30px;
+    }
     .btn {
         border-radius: 0px;
     }
@@ -98,11 +102,11 @@ header {
 
 footer {
     background-color: #484848;
-    height: 245px;
-    padding-top: 30px;
     .qr-code {
         color: #FFFFFF;
         text-align: center;
+        margin-top: 30px;
+        height: 215px;
         .logo {
             width: 145px;
             margin-bottom: 10px;

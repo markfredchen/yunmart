@@ -93,7 +93,9 @@ public class UserResource extends ResourceSupport {
 
     public User toUser() {
         User user = new User();
-        user.setUserOID(UUID.fromString(this.userOID));
+        if (this.userOID != null) {
+            user.setUserOID(UUID.fromString(this.userOID));
+        }
         user.setUsername(this.username);
         user.setPassword(this.password);
         user.setFullName(this.fullName);

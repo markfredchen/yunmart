@@ -112,7 +112,6 @@ public class YunmartApplication implements CommandLineRunner{
             product.setShortDescription(productDescs.get(i));
             product.setName(productNames.get(i));
             product.setDescription(productDescs.get(i));
-            product.setCases(productNames.get(i) + "=======" + productDescs.get(i));
             productRepository.save(product);
         }
     }

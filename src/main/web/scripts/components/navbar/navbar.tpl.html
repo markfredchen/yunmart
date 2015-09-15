@@ -26,8 +26,9 @@
                 <li ui-sref-active="active"><a ui-sref="register">注册</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-show="isAuthenticated()">
-                <li>{{ principal }}</li>
+                <li><p class="navbar-text">{{ user.fullName }}</p></li>
                 <li ui-sref-active="active"><a ng-click="logout()">退出登陆</a></li>
+
             </ul>
         </div>
     </div>

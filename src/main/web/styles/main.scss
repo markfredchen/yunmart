@@ -63,6 +63,9 @@ body {
             display: none;
         }
     }
+    .alert {
+        border-radius: 0px;
+    }
 }
 
 header {
@@ -95,7 +98,12 @@ header {
         ul.navbar-nav li.active a {
             background-color: #343434;
             color: #FFFFFF;
-
+        }
+        .navbar-text {
+            color: #FFFFFF;
+            height: 80px;
+            margin: 0;
+            padding-top: 30px;
         }
     }
 }

@@ -9,18 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by markfredchen on 9/13/15.
  */
 @Controller
 @RequestMapping("/api")
-public class SecurityController {
+public class SecurityController extends BaseController{
     @Autowired
     UserRepository userRepository;
 
@@ -35,5 +35,21 @@ public class SecurityController {
         return Optional.ofNullable(userService.getCurrentUser())
             .map(user -> new ResponseEntity<>(new UserResourceAsm().toResource(user), HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    @RequestMapping(value = "/forget/password/token")
+    @ResponseBody
+    public ResponseEntity<HashMap> getForgetPasswordToken(@RequestParam("usernameOrEmail") String usernameOrEmail) {
+        System.out.println(usernameOrEmail);
+        HashMap<String, UUID> result = new HashMap<>();
+        result.put("token", userService.getForgetPasswordToken(usernameOrEmail).getForgetPasswordToken());
+        return ResponseEntity.ok().body(result);
+    }
+
+    @RequestMapping(value = "/forget/password/reset")
+    @ResponseBody
+    public ResponseEntity<Void> resetPassword(@RequestParam("forgetPasswordToken") UUID forgetPasswordToken, @RequestParam("newPassword") String newPassword) {
+        userService.resetPassword(forgetPasswordToken, newPassword);
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yunmartApp')
-    .factory('Auth', function Auth($rootScope, $state, $q, Principal, AuthServerProvider) {
+    .factory('Auth', function Auth($rootScope, $state, $q, Principal, AuthServerProvider, User) {
         return {
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
@@ -35,7 +35,7 @@ angular.module('yunmartApp')
                         if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
                             if (isAuthenticated) {
                                 // user is signed in but not authorized for desired state
-                                $state.go('accessdenied');
+                                $state.go('home');
                             }
                             else {
                                 // user is not authenticated. stow the state they wanted before you
@@ -48,6 +48,19 @@ angular.module('yunmartApp')
                             }
                         }
                     });
+            },
+
+            register: function(user, callback) {
+                var cb = callback || angular.noop;
+
+                return User.save(user,
+                    function () {
+                        return cb(user);
+                    },
+                    function (err) {
+                        this.logout();
+                        return cb(err);
+                    }.bind(this)).$promise;
             }
         };
     });

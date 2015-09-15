@@ -35,8 +35,6 @@ public class Product{
     @NotEmpty
     private String description;
 
-    private String cases;
-
     public Long getProductID() {
         return productID;
     }
@@ -85,12 +83,5 @@ public class Product{
         this.description = description;
     }
 
-    public String getCases() {
-        return cases;
-    }
-
-    public void setCases(String cases) {
-        this.cases = cases;
-    }
 
 }

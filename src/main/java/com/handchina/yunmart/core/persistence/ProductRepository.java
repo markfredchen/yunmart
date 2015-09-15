@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,6 +13,8 @@ import java.util.UUID;
  */
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
     Product findOneByProductOID(UUID productOID);
+
+    List<Product> findByProductOIDIn(List<UUID> productOIDs);
 
     Page<Product> findByCategoryProductCategoryID(Long categoryId, Pageable pageable);
 }

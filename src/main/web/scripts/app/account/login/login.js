@@ -7,6 +7,9 @@ angular.module('yunmartApp')
         $stateProvider.state('login', {
             parent: 'account',
             url: '/login',
+            data:{
+                roles: []
+            },
             views: {
                 'content@': {
                     templateUrl: 'scripts/app/account/login/login.tpl.html',

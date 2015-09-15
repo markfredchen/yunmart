@@ -40,10 +40,6 @@ angular
         });
     }])
     .run(['$rootScope', '$state', '$http', 'localStorageService', 'Auth', 'Principal', function ($rootScope, $state, $http, localStorageService, Auth, Principal) {
-        $http.get('/api/product/categories')
-            .success(function (data) {
-                localStorageService.set('product.categories', data);
-            });
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;

@@ -58,7 +58,7 @@ angular.module('yunmartApp')
                 // retrieve the identity data from the server, update the identity object, and then resolve.
                 $http.get('/api/principal')
                     .success(function (account) {
-                        _identity = account.data;
+                        _identity = account;
                         _authenticated = true;
                         deferred.resolve(_identity);
                     })

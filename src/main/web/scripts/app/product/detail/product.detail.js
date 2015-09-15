@@ -7,7 +7,7 @@ angular.module('yunmartApp')
         $stateProvider.state('product.detail', {
             url: '/product/{productOID}',
             data: {
-                roles: ['ROLE_USER']
+                roles: []
             },
             views: {
                 'productContent@product': {

@@ -3,28 +3,57 @@
         <h3>用户注册</h3>
     </div>
     <div class="panel-body">
-        <form role="form" class="row">
+        <div class="alert alert-danger" ng-show="errorUserExists">
+            <strong>用户名已经被注册！</strong> 请尝试使用不同的用户名进行注册。
+        </div>
+        <div class="alert alert-danger" ng-show="doNotMatch">
+            输入的密码不一致，请重新尝试。
+        </div>
+        <form role="form" name="form" class="row" novalidate ng-submit="register()">
             <div class="form-group col-md-6">
-                <label for="fullName">姓名</label>
-                <input id="fullName" type="text" ng-model="user.fullName" class="form-control" />
+                <label for="fullName" class="control-label">姓名</label>
+                <input id="fullName" type="text" ng-model="user.fullName" class="form-control" required/>
+            </div>
+            <div class="form-group col-md-6" ng-class="{'has-error': form.username.$dirty && !form.username.$valid && form.username.$error}">
+                <label for="username" class="control-label">用户名</label>
+                <input id="username" type="text" name="username" ng-model="user.username" class="form-control"
+                       required ng-maxlength="50" ng-pattern="/^[a-z0-9\_\.]*$/"/>
+                <div ng-show="form.username.$dirty && form.username.$invalid">
+                    <p class="help-block"
+                       ng-show="form.username.$error.required" translate="register.messages.validate.login.required">
+                        用户名必填。
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.username.$error.maxlength" translate="register.messages.validate.login.maxlength">
+                        用户名不能超过50个字符。
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.username.$error.pattern" translate="register.messages.validate.login.pattern">
+                        用户名只支持英文字符，数字，"_"和"."。
+                    </p>
+                </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="username">用户名</label>
-                <input id="username" type="text"ng-model="user.username" class="form-control" />
+                <label for="password" class="control-label">密码</label>
+                <input id="password" type="password" ng-model="user.password" class="form-control" required/>
             </div>
             <div class="form-group col-md-6">
-                <label for="password">密码</label>
-                <input id="password" type="password" ng-model="user.password" class="form-control" />
+                <label for="confirmPassword" class="control-label">验证密码</label>
+                <input id="confirmPassword" type="password" ng-model="confirmPassword" class="form-control" required/>
             </div>
             <div class="form-group col-md-6">
-                <label for="confirmPassword">验证密码</label>
-                <input id="confirmPassword" type="password" ng-model="user.confirmPassword" class="form-control" />
+                <label for="email" class="control-label">邮件地址</label>
+                <input id="email" type="email" ng-model="user.email" class="form-control" required/>
             </div>
             <div class="form-group col-md-6">
-                <label for="email">邮件地址</label>
-                <input id="email" type="email" ng-model="user.email" class="form-control" />
+                <label for="title" class="control-label">职务</label>
+                <input id="title" type="text" ng-model="user.title" class="form-control" required/>
             </div>
-
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" type="submit">提交注册</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

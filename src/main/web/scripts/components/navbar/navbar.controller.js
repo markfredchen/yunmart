@@ -5,8 +5,11 @@
 angular.module('yunmartApp')
     .controller('NavbarController', ['$scope', '$state', 'Auth', 'Principal',
         function ($scope, $state, Auth, Principal) {
-            $scope.isAuthenticated = Principal.isAuthenticated;
-            $scope.principal = Principal.identity;
+            $scope.user = {};
+            Principal.identity().then(function(data) {
+                $scope.user = data;
+                $scope.isAuthenticated = Principal.isAuthenticated;
+            });
             $scope.logout = function () {
                 Auth.logout();
                 $state.go('home');

@@ -8,6 +8,9 @@ angular.module('yunmartApp')
         $stateProvider.state('home', {
             parent: 'site',
             url: '/',
+            data:{
+                roles: []
+            },
             views: {
                 'content@': {
                     templateUrl: 'scripts/app/home/home.tpl.html',

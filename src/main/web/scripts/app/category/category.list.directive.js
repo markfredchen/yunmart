@@ -7,8 +7,20 @@ angular.module('yunmartApp')
         return {
             restrict: 'E',
             templateUrl: 'scripts/app/category/category.list.directive.tpl.html',
-            controller: ['$scope', 'localStorageService', function ($scope, localStorageService) {
-                $scope.categories = localStorageService.get('product.categories');
+            controller: ['$scope', 'localStorageService', '$http', function ($scope, localStorageService, $http) {
+                $scope.categories = {};
+                $scope.getCategories = function () {
+                    $scope.categories = localStorageService.get('product.categories');
+                    if (!$scope.categories) {
+                        $http.get('/api/product/categories')
+                            .success(function (data) {
+                                $scope.categories = data;
+                                localStorageService.set('product.categories', data);
+                            });
+                    }
+                };
+                $scope.getCategories();
+
             }]
         };
-    }])
+    }]);

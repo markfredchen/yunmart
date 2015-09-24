@@ -1,4 +1,4 @@
-package com.handchina.yunmart.core.persistence;
+package com.handchina.yunmart.core.persistence.product;
 
 import com.handchina.yunmart.core.domain.product.ProductCategory;
 import org.springframework.data.jpa.repository.JpaRepository;

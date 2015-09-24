@@ -9,6 +9,8 @@ public enum ExceptionErrorCode {
 
     OBJECT_NOT_FOUND(HttpStatus.NOT_FOUND),
 
+    UNAUTHENTICATED(HttpStatus.FORBIDDEN),
+
     SECURITY_VIOLATION(HttpStatus.FORBIDDEN),
 
     AUTHENTICATION_FAILED(HttpStatus.FORBIDDEN),
@@ -16,7 +18,6 @@ public enum ExceptionErrorCode {
     SYSTEM_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR);
 
     HttpStatus httpStatus;
-    Logger logger;
 
     ExceptionErrorCode(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;

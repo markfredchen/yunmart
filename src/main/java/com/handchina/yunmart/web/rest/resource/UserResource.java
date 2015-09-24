@@ -1,31 +1,47 @@
 package com.handchina.yunmart.web.rest.resource;
 
-import com.handchina.yunmart.core.domain.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.hateoas.ResourceSupport;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 /**
  * Created by markfredchen on 9/13/15.
  */
-public class UserResource extends ResourceSupport {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+public class UserResource extends BaseResource {
 
     private String userOID;
+
     @NotEmpty
-    private String username;
-    @NotEmpty
-    private String password;
-    @NotEmpty
-    private String fullName;
-    @NotEmpty
+    @Email
     private String email;
 
-    private String title;
+    @NotEmpty
+    private String password;
 
-    private String accountName;
-    private List<String> authorities;
+    private String firstName;
+
+    private String lastName;
+
+    private String mobile;
+
+    private String companyName;
+
+    private String userStatus;
+
+    private String avatarFileType;
+
+    @NotEmpty
+    private String accountOID;
+
+    private String companyOID;
+
+    @NotEmpty
+    private Set<String> roles;
 
     public String getUserOID() {
         return userOID;
@@ -33,30 +49,6 @@ public class UserResource extends ResourceSupport {
 
     public void setUserOID(String userOID) {
         this.userOID = userOID;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -67,40 +59,83 @@ public class UserResource extends ResourceSupport {
         this.email = email;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getAccountName() {
-        return accountName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public List<String> getAuthorities() {
-        return authorities;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setAuthorities(List<String> authorities) {
-        this.authorities = authorities;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public User toUser() {
-        User user = new User();
-        if (this.userOID != null) {
-            user.setUserOID(UUID.fromString(this.userOID));
-        }
-        user.setUsername(this.username);
-        user.setPassword(this.password);
-        user.setFullName(this.fullName);
-        user.setEmail(this.email);
-        user.setTitle(this.title);
-        return user;
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public String getAvatarFileType() {
+        return avatarFileType;
+    }
+
+    public void setAvatarFileType(String avatarFileType) {
+        this.avatarFileType = avatarFileType;
+    }
+
+    public String getAccountOID() {
+        return accountOID;
+    }
+
+    public void setAccountOID(String accountOID) {
+        this.accountOID = accountOID;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
+    public String getCompanyOID() {
+        return companyOID;
+    }
+
+    public void setCompanyOID(String companyOID) {
+        this.companyOID = companyOID;
     }
 }

@@ -3,7 +3,7 @@ package com.handchina.yunmart.web.rest.controller;
 import com.handchina.yunmart.core.persistence.UserRepository;
 import com.handchina.yunmart.core.service.UserService;
 import com.handchina.yunmart.web.rest.resource.UserResource;
-import com.handchina.yunmart.web.rest.resource.asm.UserResourceAsm;
+import com.handchina.yunmart.web.rest.resource.adapter.UserResourceAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +33,7 @@ public class SecurityController extends BaseController{
     @ResponseBody
     public ResponseEntity<UserResource> getPrincipal() {
         return Optional.ofNullable(userService.getCurrentUser())
-            .map(user -> new ResponseEntity<>(new UserResourceAsm().toResource(user), HttpStatus.OK))
+            .map(user -> new ResponseEntity<>(new UserResourceAdapter().toResource(user), HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 

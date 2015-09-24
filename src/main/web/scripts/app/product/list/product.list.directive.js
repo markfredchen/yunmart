@@ -12,9 +12,9 @@ angular.module('yunmartApp')
                 title: '='
             },
             controller: ['$scope', function ($scope) {
-
+                $scope.viewMethod = 'LIST';
                 $scope.page = 1;
-                $scope.size = 3;
+                $scope.size = 20;
                 $scope.maxPage = 15;
                 $scope.pageData = {};
 
@@ -36,7 +36,15 @@ angular.module('yunmartApp')
 
                 };
 
+                $scope.toggleViewMethod = function () {
+                    if ($scope.viewMethod === 'LIST') {
+                        $scope.viewMethod = 'ICON';
+                    } else {
+                        $scope.viewMethod = 'LIST';
+                    }
+                }
+
                 $scope.loadProducts();
             }]
         }
-    }])
+    }]);

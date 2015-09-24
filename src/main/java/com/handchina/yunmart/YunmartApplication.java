@@ -2,16 +2,22 @@ package com.handchina.yunmart;
 
 import com.handchina.yunmart.core.domain.Account;
 import com.handchina.yunmart.core.domain.Authority;
+import com.handchina.yunmart.core.domain.PersistentAuditEvent;
 import com.handchina.yunmart.core.domain.User;
 import com.handchina.yunmart.core.domain.product.Product;
 import com.handchina.yunmart.core.domain.product.ProductCategory;
+import com.handchina.yunmart.core.domain.product.ProductStatistic;
+import com.handchina.yunmart.core.enumeration.UserStatus;
 import com.handchina.yunmart.core.persistence.*;
+import com.handchina.yunmart.core.persistence.product.ProductCategoryRepository;
+import com.handchina.yunmart.core.persistence.product.ProductRepository;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.inject.Inject;
@@ -44,6 +50,9 @@ public class YunmartApplication implements CommandLineRunner{
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    PersistenceAuditEventRepository persistenceAuditEventRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(YunmartApplication.class, args);
@@ -52,7 +61,7 @@ public class YunmartApplication implements CommandLineRunner{
     @Override
     public void run(String... strings) throws Exception {
         System.out.println(env.getProperty("yunmart.security.remember.me.key"));
-        List<String> rightNames = Arrays.asList("ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR", "ROLE_SYSTEM_ADMIN");
+        List<String> rightNames = Arrays.asList("ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR", "ROLE_SYSTEM_ADMIN", "ROLE_COMPANY_ADMIN", "ROLE_COMPANY_BILLING_ADMIN");
         for (String rightName : rightNames) {
             Authority authority = new Authority();
             authority.setName(rightName);
@@ -66,22 +75,28 @@ public class YunmartApplication implements CommandLineRunner{
 
         User user = new User();
         user.setUserOID(UUID.nameUUIDFromBytes("markfred".getBytes()));
-        user.setUsername("markfred.chen");
         user.setEmail("markfred.chen@yunmart.com");
         user.setPassword(passwordEncoder.encode("123456Ms3"));
-        user.setFullName("陈浩");
+        user.setFirstName("浩");
+        user.setLastName("陈");
+        user.setCompanyName("汉得");
         user.setAccount(account);
-        user.setRights(new HashSet<>(authorityRepository.findByNameIn(Arrays.asList("ROLE_USER"))));
+        user.setRights(authorityRepository.findByNameIn(new HashSet<>(Arrays.asList("ROLE_USER"))));
+        user.setCreatedBy("SYSTEM");
+        user.setMobile("18616808523");
+        user.setAvatarFileType("png");
+        user.setStatus(UserStatus.ENABLED);
         userRepository.save(user);
 
         User admin = new User();
         admin.setUserOID(UUID.nameUUIDFromBytes("admin".getBytes()));
-        admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("123456Ms3"));
         admin.setEmail("admin@yunmart.com");
-        admin.setFullName("系统管理员");
+        admin.setFirstName("系统管理员");
         admin.setAccount(account);
-        admin.setRights(new HashSet<>(authorityRepository.findByNameIn(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))));
+        admin.setRights(authorityRepository.findByNameIn(new HashSet<>(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))));
+        admin.setCreatedBy("SYSTEM");
+        admin.setStatus(UserStatus.ENABLED);
         userRepository.save(admin);
 
         List<String> categories = Arrays.asList("企业协作管理", "行政办公管理", "差旅管理");
@@ -112,7 +127,31 @@ public class YunmartApplication implements CommandLineRunner{
             product.setShortDescription(productDescs.get(i));
             product.setName(productNames.get(i));
             product.setDescription(productDescs.get(i));
+            product.setStatistic(new ProductStatistic());
+            product.getStatistic().setNumberOfViewed(i);
+            if (i == 1 || i == 2) {
+                product.setSetPreferredDate(DateTime.now());
+            }
             productRepository.save(product);
         }
+
+        PersistentAuditEvent event1 = new PersistentAuditEvent();
+        event1.setDomainOID(UUID.nameUUIDFromBytes(productNames.get(1).getBytes()));
+        event1.setAuditEventType("VIEW_PRODUCT");
+        event1.setPrincipal("markfred.chen@yunmart.com");
+        event1.setAuditEventDate(LocalDateTime.now());
+        PersistentAuditEvent event2 = new PersistentAuditEvent();
+        event2.setDomainOID(UUID.nameUUIDFromBytes(productNames.get(1).getBytes()));
+        event2.setAuditEventType("VIEW_PRODUCT");
+        event2.setPrincipal("markfred.chen@yunmart.com");
+        event2.setAuditEventDate(LocalDateTime.now());
+        PersistentAuditEvent event3 = new PersistentAuditEvent();
+        event3.setDomainOID(UUID.nameUUIDFromBytes(productNames.get(0).getBytes()));
+        event3.setAuditEventType("VIEW_PRODUCT");
+        event3.setPrincipal("markfred.chen@yunmart.com");
+        event3.setAuditEventDate(LocalDateTime.now());
+        persistenceAuditEventRepository.save(event1);
+        persistenceAuditEventRepository.save(event2);
+        persistenceAuditEventRepository.save(event3);
     }
 }

@@ -32,6 +32,7 @@ angular.module('yunmartApp')
                 rememberMe: true
             }).then(function () {
                 $scope.authenticationError = false;
+                $rootScope.$broadcast('userLoggedIn', {});
                 if ($rootScope.previousStateName === 'register') {
                     $state.go('home');
                 } else {

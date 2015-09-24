@@ -7,13 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Persist AuditEvent managed by the Spring Boot actuator
  * @see org.springframework.boot.actuate.audit.AuditEvent
  */
 @Entity
-@Table(name = "T_PersistentAuditEvent")
+@Table(name = "YM_PersistentAuditEvent")
 public class PersistentAuditEvent  {
 
     @Id
@@ -30,10 +31,12 @@ public class PersistentAuditEvent  {
     @Column(name = "eventType")
     private String auditEventType;
 
+    private UUID domainOID;
+
     @ElementCollection
     @MapKeyColumn(name="name")
     @Column(name="value")
-    @CollectionTable(name="T_PersistentAuditEventData", joinColumns=@JoinColumn(name="eventID"))
+    @CollectionTable(name="YM_PersistentAuditEventData", joinColumns=@JoinColumn(name="eventID"))
     private Map<String, String> data = new HashMap<>();
 
     public Long getEventID() {
@@ -74,5 +77,13 @@ public class PersistentAuditEvent  {
 
     public void setData(Map<String, String> data) {
         this.data = data;
+    }
+
+    public UUID getDomainOID() {
+        return domainOID;
+    }
+
+    public void setDomainOID(UUID domainOID) {
+        this.domainOID = domainOID;
     }
 }

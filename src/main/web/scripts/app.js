@@ -18,27 +18,50 @@ angular
         'ngTouch',
         'ui.router',
         'ui.bootstrap',
-        'LocalStorageModule'
+        'LocalStorageModule',
+        'tmh.dynamicLocale',
+        'pascalprecht.translate',
+        'bootstrap.fileField',
+        'ImageCropper'
     ])
-    .config(['$urlRouterProvider', '$stateProvider', 'localStorageServiceProvider', '$httpProvider', function ($urlRouterProvider, $stateProvider, localStorageServiceProvider, $httpProvider) {
-        $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
-        $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
+    .config(['$urlRouterProvider', '$stateProvider', 'localStorageServiceProvider', '$httpProvider', '$translateProvider',
+        function ($urlRouterProvider, $stateProvider, localStorageServiceProvider, $httpProvider, $translateProvider) {
+            $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
+            // i18n
+            // Initialize angular-translate
+            $translateProvider.useLoader('$translatePartialLoader', {
+                urlTemplate: 'i18n/{lang}/{part}.json'
+            });
+            $translateProvider.preferredLanguage('zh_CN');
+            $translateProvider.useCookieStorage();
+            $translateProvider.useSanitizeValueStrategy('escaped');
+            //$translateProvider.addInterpolation('$translateMessageFormatInterpolation');
 
-        localStorageServiceProvider.setPrefix('yunmart');
-        $urlRouterProvider.otherwise('/');
-        $stateProvider.state('site', {
-            abstract: true,
-            views: {
-                'navbar@': {
-                    templateUrl: 'scripts/components/navbar/navbar.tpl.html',
-                    controller: 'NavbarController'
+            localStorageServiceProvider.setPrefix('yunmart');
+            $urlRouterProvider.otherwise('/');
+            $stateProvider.state('site', {
+                abstract: true,
+                views: {
+                    'navbar@': {
+                        templateUrl: 'scripts/components/navbar/navbar.tpl.html',
+                        controller: 'NavbarController'
+                    },
+                    'footer@': {
+                        templateUrl: 'scripts/components/footer/footer.tpl.html'
+                    }
                 },
-                'footer@': {
-                    templateUrl: 'scripts/components/footer/footer.tpl.html'
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('global');
+                        return $translate.refresh();
+                    }],
+                    authorize: ['Auth', function (Auth) {
+                        return Auth.authorize();
+                    }]
                 }
-            }
-        });
-    }])
+            });
+        }])
     .run(['$rootScope', '$state', '$http', 'localStorageService', 'Auth', 'Principal', function ($rootScope, $state, $http, localStorageService, Auth, Principal) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;

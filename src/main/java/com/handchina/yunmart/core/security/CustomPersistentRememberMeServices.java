@@ -83,7 +83,7 @@ public class CustomPersistentRememberMeServices extends
     protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request, HttpServletResponse response) {
 
         PersistentToken token = getPersistentToken(cookieTokens);
-        String login = token.getUser().getUsername();
+        String login = token.getUser().getEmail();
 
         // Token also matches, so login is valid. Update the token value, keeping the *same* series number.
         log.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
@@ -106,7 +106,7 @@ public class CustomPersistentRememberMeServices extends
         String login = successfulAuthentication.getName();
 
         log.debug("Creating new persistent login for user {}", login);
-        PersistentToken token = userRepository.findByUsername(login).map(u -> {
+        PersistentToken token = userRepository.findByEmail(login).map(u -> {
             PersistentToken t = new PersistentToken();
             t.setSeries(generateSeriesData());
             t.setUser(u);

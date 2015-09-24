@@ -1,19 +1,27 @@
-<div class="panel col-sm-6 col-sm-offset-3">
-    <div class="panel-heading">
-        <h3>用户登陆</h3>
-    </div>
-    <div class="panel-body">
-        <form role="form" class="row" ng-submit="login()">
-            <div class="form-group col-md-6">
-                <label for="username">用户名</label>
-                <input id="username" type="text"ng-model="credential.username" class="form-control" />
+<div class="container">
+    <div class="login row">
+        <div class="ads col-md-6">
+            ADS
+        </div>
+        <div class="panel col-sm-6">
+            <div class="panel-heading">
+                <h3>用户登陆</h3>
             </div>
-            <div class="form-group col-md-6">
-                <label for="password">密码</label>
-                <input id="password" type="password" ng-model="credential.password" class="form-control" />
+            <div class="panel-body">
+                <form role="form" class="row col-md-10 col-md-offset-1" ng-submit="login()">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input id="username" type="text" ng-model="credential.username" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label><a ui-sref="send_forget_password_token"
+                                                           class="pull-right">忘记密码?</a>
+                        <input id="password" type="password" ng-model="credential.password" class="form-control"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">登录</button>
+                    <span class="register"><span>没有帐号？</span><a ui-sref="register">免费注册</a> </span>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary">登录</button>
-            <a ui-sref="send_forget_password_token">忘记密码?</a>
-        </form>
+        </div>
     </div>
 </div>

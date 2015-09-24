@@ -10,8 +10,8 @@ import java.util.UUID;
  * Created by markfredchen on 9/7/15.
  */
 @Entity
-@Table(name = "T_Account")
-public class Account {
+@Table(name = "YM_Account")
+public class Account extends DomainObject{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long accountID;
@@ -21,6 +21,8 @@ public class Account {
 
     @NotEmpty
     private String name;
+
+    private UUID ownerEntityOID;
 
     public Long getAccountID() {
         return accountID;
@@ -44,5 +46,13 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UUID getOwnerEntityOID() {
+        return ownerEntityOID;
+    }
+
+    public void setOwnerEntityOID(UUID ownerEntityOID) {
+        this.ownerEntityOID = ownerEntityOID;
     }
 }

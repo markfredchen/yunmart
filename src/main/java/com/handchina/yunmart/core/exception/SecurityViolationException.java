@@ -11,4 +11,8 @@ public class SecurityViolationException extends RuntimeException {
         super("User[userID=" + userID + "] doesn't have Right[" + right + "]");
     }
 
+    public SecurityViolationException() {
+        super("Identity is not consistent");
+    }
+
 }

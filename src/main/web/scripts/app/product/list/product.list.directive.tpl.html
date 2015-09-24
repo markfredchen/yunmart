@@ -4,57 +4,91 @@
     </div>
     <div class="panel-body">
         <div ng-show="pageData.content.length > 0">
-        <div class="filter-panel row">
-            <div class="view-method col-sm-4">
-                <div class="view-label">显示方式</div>
-                <div class="icon-button"><span class="glyphicon glyphicon-th-list"></span></div>
-                <div class="icon-button"><span class="glyphicon glyphicon-th-large"></span></div>
+            <div class="filter-panel row">
+                <div class="view-method col-sm-4">
+                    <div class="view-label">显示方式</div>
+                    <div class="icon-button">
+                        <button type="button" ng-click="toggleViewMethod()"><span
+                            class="glyphicon glyphicon-th-list"></span></button>
+                    </div>
+                    <div class="icon-button">
+                        <button type="button" ng-click="toggleViewMethod()"><span
+                            class="glyphicon glyphicon-th-large"></span></button>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="list col-sm-12">
-            <div class="row">
+            <div class="list col-sm-12">
+                <div class="row">
 
-                    <div class="product list" ng-repeat="product in pageData.content">
-                        <div class="thumbnail">
-                            <img src="/images/yunlutianxing-500x500.png" class="img-circle"/>
-                        </div>
-                        <div class="information">
-                            <div class="name">
-                                <a ui-sref="product.detail({productOID: product.productOID})"> {{ product.name }}</a>
+                    <div ng-show="viewMethod == 'LIST'" class="product list" ng-repeat="product in pageData.content">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img src="/clients/products/{{product.productOID}}/logo.png" class="media-object product-logo"/>
+                                </a>
                             </div>
-                            <div class="description">
+                            <div class="media-body">
+                                <h4 class="media-heading"><a ui-sref="product.detail({productOID: product.productOID})">
+                                    {{ product.name }}</a></h4>
                                 {{ product.description}}
-                            </div>
-                            <div class="button-group">
-                                <button type="button" class="btn btn-default">敬请期待</button>
-                                <button type="button" class="btn btn-primary">加入购物车</button>
-                                <button type="button" class="btn btn-primary"><span
-                                    class="glyphicon glyphicon-heart"></span></button>
-                                <button type="button" class="btn btn-primary"><span
-                                    class="glyphicon glyphicon-retweet"></span></button>
+                                <div class="button-group">
+                                    <button type="button" class="btn btn-default">敬请期待</button>
+                                    <button type="button" class="btn btn-primary">加入购物车</button>
+                                    <button type="button" class="btn btn-primary"><span
+                                        class="glyphicon glyphicon-heart"></span></button>
+                                    <button type="button" class="btn btn-primary"><span
+                                        class="glyphicon glyphicon-retweet"></span></button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <pagination total-items="pageData.totalElements"
-                                ng-model="page"
-                                items-per-page="size"
-                                class="pagination-sm"
-                                boundary-links="true"
-                                rotate="false"
-                                num-pages="pageData.totalPages"
-                                ng-change="loadProducts()"
-                                first-text="|<"
-                                previous-text="<"
-                                next-text=">"
-                                last-text=">|"></pagination>
-                </div>
 
+                </div>
+                <div class="row">
+                    <div ng-show="viewMethod == 'ICON'" class="product icon-view"
+                         ng-repeat="product in pageData.content">
+                        <div class="media">
+                            <div class="media-top">
+                                <a href="#">
+                                    <img src="/clients/products/{{product.productOID}}/logo.png" class="product-logo"/>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a
+                                    ui-sref="product.detail({productOID: product.productOID})"
+                                    alt="{{product.description}}"> {{
+                                    product.name }}</a></h4>
+
+                                <div class="button-group">
+                                    <button type="button" class="btn btn-primary"><span
+                                        class="glyphicon glyphicon-heart"></span></button>
+                                    <button type="button" class="btn btn-primary"><span
+                                        class="glyphicon glyphicon-retweet"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pagination total-items="pageData.totalElements"
+                            ng-model="page"
+                            items-per-page="size"
+                            class="pagination-sm"
+                            boundary-links="true"
+                            rotate="false"
+                            num-pages="pageData.totalPages"
+                            ng-change="loadProducts()"
+                            first-text="|<"
+                            previous-text="<"
+                            next-text=">"
+                            last-text=">|">
+
+                </pagination>
             </div>
         </div>
-    </div>
-    <div ng-show="pageData.content.length === 0">
-        未找到您需要的产品。请尝试更换搜索条件。
+        <div ng-show="pageData.content.length === 0">
+            未找到您需要的产品。请尝试更换搜索条件。
+        </div>
     </div>
 </div>

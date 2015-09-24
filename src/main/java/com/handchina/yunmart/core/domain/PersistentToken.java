@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "T_PersistentToken")
-public class PersistentToken implements Serializable {
+public class PersistentToken extends DomainObject {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 

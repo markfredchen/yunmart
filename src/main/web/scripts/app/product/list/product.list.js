@@ -21,7 +21,7 @@ angular.module('yunmartApp')
                     var categories = localStorageService.get('product.categories');
                     for (var i = 0; i < categories.length; i++) {
                         var category = categories[i];
-                        if(category.productCategoryID === categoryID) {
+                        if(category.categoryID === categoryID) {
                             return category;
                         }
                     }

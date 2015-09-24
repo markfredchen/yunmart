@@ -1,0 +1,15 @@
+<form role="form" name="form" ng-submit="createComment()" class="form">
+    <div class="form-group">
+        <label class="control-label">评论内容</label>
+        <rating id=="rating" ng-model="comment.rating" max="5" on-leave="overStar = null"></rating>
+    </div>
+    <div class="form-group">
+        <label for="content" class="control-label">评论内容</label>
+        <textarea id="content" ng-model="comment.content" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">提交</button>
+    </div>
+
+    {{ comment }}
+</form>

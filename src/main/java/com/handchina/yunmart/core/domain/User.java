@@ -1,8 +1,9 @@
 package com.handchina.yunmart.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.*;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import com.handchina.yunmart.core.enumeration.UserStatus;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
@@ -18,29 +19,38 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "T_User")
-public class User{
+public class User extends AbstractAuditingEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long userID;
+    private Long userID;
 
     @NotNull
-    protected UUID userOID;
+    private UUID userOID;
 
     @NotNull
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "accountID", referencedColumnName = "accountID")
-    protected Account account;
+    private Account account;
 
     @NotEmpty
-    protected String username;
+    @Email
+    @Column(unique = true)
+    private String email;
 
-    protected String password;
+    private String password;
 
-    protected String email;
+    private String firstName;
 
-    protected String fullName;
+    private String lastName;
 
-    protected String title;
+    private String mobile;
+
+    private String companyName;
+
+    private Integer statusID;
+
+    private String avatarFileType;
+
 
     @JsonIgnore
     @ManyToMany
@@ -48,7 +58,7 @@ public class User{
         name = "T_UserAuthority",
         joinColumns = {@JoinColumn(name = "userID", referencedColumnName = "userID")},
         inverseJoinColumns = {@JoinColumn(name = "authorityName", referencedColumnName = "name")})
-    protected Set<Authority> rights = new HashSet<>();
+    private Set<Authority> rights = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
@@ -70,14 +80,6 @@ public class User{
         this.userOID = userOID;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -94,20 +96,60 @@ public class User{
         this.email = email;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getTitle() {
-        return title;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public UserStatus getStatus() {
+        return UserStatus.parse(this.statusID);
+    }
+
+    public void setStatus(UserStatus status) {
+        this.statusID = status.getID();
+    }
+
+    public Integer getStatusID() {
+        return statusID;
+    }
+
+    public void setStatusID(Integer statusID) {
+        this.statusID = statusID;
+    }
+
+    public String getAvatarFileType() {
+        return avatarFileType;
+    }
+
+    public void setAvatarFileType(String avatarFileType) {
+        this.avatarFileType = avatarFileType;
     }
 
     public Account getAccount() {

@@ -1,0 +1,24 @@
+{
+    "profile": {
+        "avatar": {
+            "dialog": {
+                "heading": "修改头像",
+                "form": {
+                    "avatar": {
+                        "label": "用户头像",
+                        "placeholder": "请选择头像文件",
+                        "button": {
+                            "select": "选择头像文件",
+                            "ok": "上传头像",
+                            "cancel": "取消"
+                        }
+                    },
+                    "crop": {
+                        "reset": "重新裁剪",
+                        "confirm": "确认裁剪"
+                    }
+                }
+            }
+        }
+    }
+}

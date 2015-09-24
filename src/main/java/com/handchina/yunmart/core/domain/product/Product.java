@@ -1,7 +1,10 @@
 package com.handchina.yunmart.core.domain.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.handchina.yunmart.core.domain.DomainObject;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,8 +14,8 @@ import java.util.UUID;
  * Created by markfredchen on 9/7/15.
  */
 @Entity
-@Table(name = "T_Product")
-public class Product{
+@Table(name = "YM_Product")
+public class Product extends DomainObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +26,7 @@ public class Product{
     private UUID productOID;
 
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "categoryID", referencedColumnName = "productCategoryID")
+    @JoinColumn(name = "categoryID", referencedColumnName = "categoryID")
     private ProductCategory category;
 
     @NotEmpty
@@ -34,6 +37,13 @@ public class Product{
 
     @NotEmpty
     private String description;
+
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime setPreferredDate;
+
+    @Embedded
+    @NotNull
+    private ProductStatistic statistic;
 
     public Long getProductID() {
         return productID;
@@ -83,5 +93,33 @@ public class Product{
         this.description = description;
     }
 
+    public DateTime getSetPreferredDate() {
+        return setPreferredDate;
+    }
 
+    public void setSetPreferredDate(DateTime setPreferredDate) {
+        this.setPreferredDate = setPreferredDate;
+    }
+
+    public ProductStatistic getStatistic() {
+        return statistic;
+    }
+
+    public void setStatistic(ProductStatistic statistic) {
+        this.statistic = statistic;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+            "productID=" + productID +
+            ", productOID=" + productOID +
+            ", category=" + category +
+            ", name='" + name + '\'' +
+            ", shortDescription='" + shortDescription + '\'' +
+            ", description='" + description + '\'' +
+            ", setPreferredDate=" + setPreferredDate +
+            ", statistic=" + statistic +
+            '}';
+    }
 }

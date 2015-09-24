@@ -1,6 +1,7 @@
 package com.handchina.yunmart.web.rest.controller;
 
 import com.handchina.yunmart.core.exception.ObjectNotFoundException;
+import com.handchina.yunmart.core.exception.UnauthenticatedException;
 import com.handchina.yunmart.core.exception.ValidationError;
 import com.handchina.yunmart.core.exception.ValidationException;
 import com.handchina.yunmart.web.exception.ExceptionDetail;
@@ -53,10 +54,19 @@ public class BaseController {
         return new ResponseEntity<>(detail, ExceptionErrorCode.OBJECT_NOT_FOUND.getHttpStatus());
     }
 
+    @ExceptionHandler(UnauthenticatedException.class)
+    public ResponseEntity<ExceptionDetail> handUnauthenticated(UnauthenticatedException e) {
+        ExceptionDetail detail = new ExceptionDetail();
+        detail.setErrorCode(ExceptionErrorCode.UNAUTHENTICATED);
+        detail.setMessage(e.getMessage());
+        return new ResponseEntity<>(detail, ExceptionErrorCode.UNAUTHENTICATED.getHttpStatus());
+    }
+
 
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<ExceptionDetail> handleException(Throwable e) {
         log.error(e);
+        e.printStackTrace();
         ExceptionDetail detail = new ExceptionDetail();
         detail.setErrorCode(ExceptionErrorCode.SYSTEM_EXCEPTION);
         detail.setMessage(e.getMessage());

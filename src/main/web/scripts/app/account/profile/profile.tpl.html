@@ -1,0 +1,104 @@
+<div class="user-profile container">
+    <div class="row">
+        <script type="text/ng-template" id="changeAvatarDialog.html">
+            <div class="modal-header">
+                <h3 class="modal-title" translate="profile.avatar.dialog.heading"></h3>
+            </div>
+            <div class="modal-body">
+                <form role="form" name="form">
+                    <div class="form-group">
+                        <label for="avatar" translate="profile.avatar.dialog.form.avatar.label">用户头像</label>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="uploadFile.name" disabled
+                                   placeholder="{{ 'profile.avatar.dialog.form.avatar.placeholder' | translate}}">
+                        <span class="input-group-btn">
+                            <file-field id="avatar" class="btn btn-default" ng-model="uploadFile"
+                                        preview="previewImage">
+                                {{ 'profile.avatar.dialog.form.avatar.button.select' | translate}}
+                            </file-field>
+                        </span>
+                        </div>
+                    </div>
+                </form>
+                <div ng-show="imageCropStep == 2">
+                    <image-crop
+                        height="160"
+                        width="150"
+                        shape="square"
+                        step="imageCropStep"
+                        src="previewImage"
+                        result="imageCropResult"
+                        crop="initCrop"
+                        max-size="1024"
+                        ></image-crop>
+                </div>
+
+                <div ng-show="imageCropStep == 3">
+                    <img ng-src="{{imageCropResult}}"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div ng-show="imageCropStep == 2">
+                    <button class="btn btn-primary" ng-click="initCrop = true">{{
+                        'profile.avatar.dialog.form.crop.confirm'
+                        | translate }}
+                    </button>
+                </div>
+                <div ng-show="imageCropStep != 2">
+                    <button ng-show="imageCropStep == 3" class="btn btn-primary" type="button" ng-click="ok()"
+                            translate="profile.avatar.dialog.form.avatar.button.ok">OK
+                    </button>
+                    <button class="btn btn-warning" type="button" ng-click="cancel()"
+                            translate="profile.avatar.dialog.form.avatar.button.cancel">Cancel
+                    </button>
+                </div>
+            </div>
+        </script>
+
+        <div class="summary col-md-12">
+            <div class="col-md-2 user-avatar">
+                <avatar blank-avatar-url="/images/blank-avatar.png" avatar-file-type="profile.avatarFileType"
+                        user-o-i-d="{{profile.userOID}}"></avatar>
+                <a id="changeAvatarIcon" ng-click="openChangeAvatarDialog()"><i class="glyphicon glyphicon-cog"
+                                                                                aria-hidden="true"></i>{{
+                    'profile.avatar.dialog.heading' | translate}}</a>
+            </div>
+            <div class="user-info col-md-4">
+                <h3>{{ 'navbar.menu.authenticated.fullName' | translate: profile }}</h3>
+                <div class="email">{{ profile.email }}</div>
+                <div class="alert alert-warning">邮箱未认证</div>
+            </div>
+        </div>
+
+        <tabset class="col-md-12">
+            <tab>
+                <tab-heading>个人信息</tab-heading>
+                <div class="panel panel-default">
+                    <div class="panel-heading">联系方式</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">邮件地址</label>
+                                <div class="form-control-static col-sm-8">{{ profile.email }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">手机号码</label>
+                                <div class="form-control-static col-sm-8">{{ profile.mobile }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">所谓企业</label>
+                                <div class="form-control-static col-sm-8">{{ profile.companyName }} </div>
+                                <div ng-show="profile.accountOID == PublicAccountOID" class="alert alert-warning col-sm-offset-2 col-sm-4">企业未创建</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </tab>
+        </tabset>
+    </div>
+</div>
+{{ profile }}
+
+{{ PublicAccountOID }}

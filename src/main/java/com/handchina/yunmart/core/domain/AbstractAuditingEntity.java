@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 @MappedSuperclass
 @Audited
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractAuditingEntity {
+public abstract class AbstractAuditingEntity extends DomainObject{
 
     @CreatedBy
     @NotNull

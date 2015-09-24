@@ -1,17 +1,79 @@
-<div class="row">
-    <carousel interval="carousel.myInterval" no-wrap="carousel.noWrapSlides">
-        <slide ng-repeat="slide in carousel.slides" active="slide.active">
-            <img ng-src="{{slide.image}}" style="margin:auto;">
-        </slide>
-    </carousel>
+<div class="container home">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row">
+                        <carousel interval="myInterval" no-wrap="noWrapSlides">
+                            <slide ng-repeat="slide in carousel.slides" active="slide.active">
+                                <img ng-src="{{slide.image}}" style="margin:auto;">
+                            </slide>
+                        </carousel>
+                    </div>
+                </div>
+                <tabset class="col-md-5">
+                    <tab>
+                        <tab-heading>推荐测评</tab-heading>
+                        <div class="media">
+                            <div class="media-body">
+                                <span class="pull-left"><a href="#">Abukai</a></span>
+                                <span class="pull-right">10-01</span>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="media-body">
+                                <span class="pull-left"><a href="#">Abukai</a></span>
+                                <span class="pull-right">10-01</span>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="media-body">
+                                <span class="pull-left"><a href="#">Abukai</a></span>
+                                <span class="pull-right">10-01</span>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="media-body">
+                                <span class="pull-left"><a href="#">Abukai</a></span>
+                                <span class="pull-right">10-01</span>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="media-body">
+                                <span class="pull-left"><a href="#">Abukai</a></span>
+                                <span class="pull-right">10-01</span>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab>
+                        <tab-heading>热门文章</tab-heading>
+                        TEST
+                    </tab>
+                </tabset>
 
-</div>
+                <div class="col-md-12"
+                     style="background-color: darkgrey; height: 80px;text-align: center;vertical-align: middle;margin:10px 0px">
+                    <h3>广告位</h3>
+                </div>
 
-<div class="row">
-    <div class="col-sm-3">
-        <category-list></category-list>
+                <div class="col-md-12 featured-products">
+                    <product-icon-list class="row" api-url="/api/product/preferred" per-page="6"></product-icon-list>
+                </div>
+                <div class="col-md-12 hot-products">
+                    <product-icon-list class="row" api-url="/api/product/popular" per-page="6"></product-icon-list>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-9">
-        <product-list title="productListTitle"></product-list>
+
+
+    <div class="row product-section">
+        <div class="col-sm-3">
+            <category-list></category-list>
+        </div>
+        <div class="col-sm-9">
+            <product-list title="productListTitle"></product-list>
+        </div>
     </div>
 </div>
+{{ preferred }}

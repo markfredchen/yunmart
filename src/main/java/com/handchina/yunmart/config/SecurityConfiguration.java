@@ -77,9 +77,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println(env.getProperty("security.remember.me.key"));
         http
-//            .csrf()
-//            .and()
-                .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
+            .csrf().disable()
+//                .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
             .and()

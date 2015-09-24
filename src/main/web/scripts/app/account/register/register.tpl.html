@@ -11,8 +11,8 @@
         </div>
         <form role="form" name="form" class="row" novalidate ng-submit="register()">
             <div class="form-group col-md-6">
-                <label for="fullName" class="control-label">姓名</label>
-                <input id="fullName" type="text" ng-model="user.fullName" class="form-control" required/>
+                <label for="firstName" class="control-label">姓名</label>
+                <input id="firstName" type="text" ng-model="user.firstName" class="form-control" required/>
             </div>
             <div class="form-group col-md-6" ng-class="{'has-error': form.username.$dirty && !form.username.$valid && form.username.$error}">
                 <label for="username" class="control-label">用户名</label>

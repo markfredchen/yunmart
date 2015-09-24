@@ -24,8 +24,8 @@ angular.module('yunmartApp')
             myInterval: 5000,
             noWrapSlides: false,
             slides: [
-                {image: '/images/c1.jpg'},
-                {image: '/images/c3.jpg'}
+                {image: '/clients/carousel/office365.png'},
+                {image: '/clients/carousel/kp.png'}
             ]
         };
         $scope.productListTitle = "热门推荐";

@@ -27,7 +27,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String login = username.toLowerCase();
-        Optional<User> userFromDB = userRepository.findByUsername(login);
+        Optional<User> userFromDB = userRepository.findByEmail(login);
 
         return userFromDB.map(user -> {
             List<GrantedAuthority> grantedAuthorities = user.getRights().stream()

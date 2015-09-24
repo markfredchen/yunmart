@@ -1,8 +1,9 @@
-package com.handchina.yunmart.core.persistence;
+package com.handchina.yunmart.core.persistence.product;
 
 import com.handchina.yunmart.core.domain.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
@@ -11,10 +12,10 @@ import java.util.UUID;
 /**
  * Created by markfredchen on 9/7/15.
  */
-public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findOneByProductOID(UUID productOID);
 
-    List<Product> findByProductOIDIn(List<UUID> productOIDs);
+    Page<Product> findByCategoryCategoryID(Long categoryId, Pageable pageable);
 
-    Page<Product> findByCategoryProductCategoryID(Long categoryId, Pageable pageable);
+    Page<Product> findBySetPreferredDateNotNullOrderBySetPreferredDateDesc(Pageable pageable);
 }

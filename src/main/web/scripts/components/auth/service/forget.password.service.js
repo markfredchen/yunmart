@@ -6,26 +6,14 @@ angular.module('yunmartApp')
     .factory('ForgetPassword', ['$http', '$q', function ($http, $q) {
         return {
             getForgetPasswordToken: function (usernameOrEmail) {
-                var deferred = $q.defer();
-                $http.get('/api/forget/password/token' + usernameOrEmail)
-                    .success(function (data) {
-                        deferred.resolve(data.token);
-                    })
-                    .error(function (error) {
-                        deferred.resolve(error);
-                    });
-                return deferred.promise;
+                return $http({
+                    method: 'GET',
+                    url: '/api/forget/password/token',
+                    params: {usernameOrEmail: usernameOrEmail}
+                });
             },
             resetPassword: function (token) {
-                var deferred = $q.defer();
-                $http.get('/api/forget/password/' + token)
-                    .success(function (data) {
-                        deferred.resolve(data);
-                    })
-                    .error(function (error) {
-                        deferred.resolve(error);
-                    });
-                return deferred.promise;
+                return $http.get('/api/forget/password/' + token)
             }
         }
     }])

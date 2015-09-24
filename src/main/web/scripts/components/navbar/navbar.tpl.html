@@ -17,17 +17,32 @@
         <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-                <li ui-sref-active="active"><a ui-sref="home">主页</a></li>
-                <li><a href="#/">产品</a></li>
-                <li><a href="#/">评测</a></li>
+                <li ui-sref-active="active"><a ui-sref="home" translate="navbar.menu.home">主页</a></li>
+                <li><a href="#/" translate="navbar.menu.product">产品</a></li>
+                <li><a href="#/" translate="navbar.menu.review">评测</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-hide="isAuthenticated()">
-                <li ui-sref-active="active"><a ui-sref="login">登录</a></li>
-                <li ui-sref-active="active"><a ui-sref="register">注册</a></li>
+                <li ui-sref-active="active"><a ui-sref="login" translate="navbar.menu.unauthenticated.login">登录</a></li>
+                <li ui-sref-active="active"><a ui-sref="register" translate="navbar.menu.unauthenticated.sign.up">注册</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-show="isAuthenticated()">
-                <li><p class="navbar-text">{{ user.fullName }}</p></li>
-                <li ui-sref-active="active"><a ng-click="logout()">退出登陆</a></li>
+                <li class="dropdown">
+
+                    <a href="#" class="dropdown-toggle nav-user-menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+
+                        <avatar blank-avatar-url="/images/blank-avatar.png" avatar-file-type="user.avatarFileType" user-o-i-d="{{user.userOID}}"></avatar>
+                        <div class="nav-user-text">{{ 'navbar.menu.authenticated.fullName' | translate: user }}
+                            <span class="caret"/>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="profile">个人信息</a></li>
+                        <li><a ui-sref="company">我的公司</a></li>
+                        <li><a href="#" translate="navbar.menu.authenticated.account.setting">帐户设置</a></li>
+                        <li><a ng-click="logout()" translate="navbar.menu.authenticated.logout">退出登陆</a></li>
+                    </ul>
+                </li>
+
 
             </ul>
         </div>

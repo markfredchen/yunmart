@@ -1,0 +1,22 @@
+<div class="heading col-md-12">
+    <div class="row"><h4 class="col-md-4">推荐产品</h4>
+
+        <div class="col-md-3 pull-right">Pager</div>
+    </div>
+</div>
+<div class="body product-list">
+    <div class="row">
+        <div class="product col-md-2" ng-repeat="product in pageData.data">
+            <div class="media-top">
+                <a href="#">
+                    <img src="/clients/products/{{ product.productOID }}/logo.png"
+                         class="product-logo"/>
+                </a>
+            </div>
+            <div class="media-body">
+                <h5>{{ product.name }}</h5>
+                <rating ng-model="product.averageRating" max="5" readonly="true"></rating>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,12 +1,7 @@
-<div class="category-list panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">产品分类</h3>
-    </div>
-    <div class="panel-body">
-        <ul class="list-group">
-            <li class="list-item" ng-repeat="category in categories">
-                <a ui-sref="product.list({categoryID: category.productCategoryID})">{{category.name}}</a>
-            </li>
-        </ul>
-    </div>
-</div>
+<ul class="list-group">
+    <li class="list-group-item list-group-item-heading">产品分类</li>
+    <li class="list-group-item" ng-repeat="category in categories">
+        <span class="badge">14</span>
+        <a ui-sref="product.list({categoryID: category.categoryID})">{{category.name}}</a>
+    </li>
+</ul>

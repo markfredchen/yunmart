@@ -1,0 +1,41 @@
+{
+    "navbar": {
+        "menu": {
+            "home": "主页",
+            "product": "产品市场",
+            "review": "评测专区",
+            "unauthenticated": {
+                "login": "登录",
+                "sign.up": "注册"
+            },
+            "authenticated": {
+                "fullName": "{{ lastName }}{{ firstName }}",
+                "account.setting": "帐户设置",
+                "logout": "退出登录"
+            }
+        }
+
+    },
+
+    "industry": {
+        "AFAF": "农、林、牧、渔业",
+        "MINING": "采矿业",
+        "MANUFACTURING": "制造业",
+        "ENERGY_SUPPLY": "电力、燃气及水的生产和供应",
+        "CONSTRUCTION": "建筑业",
+        "TSP": "交通运输、仓储和邮政",
+        "ICS": "信息传输、计算机服务和软件业",
+        "RETAILER": "批发和零售",
+        "AR": "住宿和餐饮业",
+        "FINANCE": "金融业",
+        "HOUSING": "房地产业",
+        "RENT": "租赁和商务服务",
+        "SCIENCE": "科学研究、技术服务和地质勘查",
+        "ENVIRONMENT": "水利、环境和公共设施管理",
+        "SERVICE": "居民服务和其他服务",
+        "EDU": "教育",
+        "SSASB": "卫生、社会保障和社会福利",
+        "CSE": "文化、体育和娱乐业",
+        "PMSO": "公共管理和社会组织"
+    }
+}

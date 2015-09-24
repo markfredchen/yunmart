@@ -1,0 +1,38 @@
+mail:
+    host: smtp.exmail.qq.com
+    port: 465
+    username: markfred.chen@yunmart.com
+    password: Netants0123
+    protocol: smtp
+    tls: false
+    auth: false
+    from: markfred.chen@yunmart.com
+spring:
+    profiles.active: dev
+    datasource:
+        dataSourceClassName: org.h2.jdbcx.JdbcDataSource
+        url: jdbc:h2:mem:yunmart;DB_CLOSE_DELAY=-1
+        databaseName:
+        serverName:
+        username:
+        password:
+
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        database: H2
+        openInView: false
+        show_sql: true
+        generate-ddl: true
+        hibernate:
+            ddl-auto: create-drop
+            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+
+    data:
+        elasticsearch.properties.path:
+            logs: target/elasticsearch/log
+            data: target/elasticsearch/data
+
+yunmart:
+    security:
+        remember.me.key: 066452951d0f46dba5bea32189274792
+    user.avatar.path: /Users/markfredchen/Workspace/HandChina/idea/yunmart/src/main/web/clients/avatar/
